@@ -18,7 +18,8 @@ process
 server(container).then(async (app) => {
   const port = container.resolve("config").port;
   const logger = container.resolve("logger");
-  const server = app.listen(port, () => {
+
+  app.listen(port, () => {
     logger.info(
       `Server started successfully, running on port: ${
         container.resolve("config").port
@@ -26,7 +27,6 @@ server(container).then(async (app) => {
     );
   });
 
-  server.keepAliveTimeout = 120000;
   app.on("close", () => {
     // Close DB connections, etc.
   });

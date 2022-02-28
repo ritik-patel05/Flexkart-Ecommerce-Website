@@ -8,7 +8,7 @@ import {
 import config from "../config/index.js";
 import models from "../models/index.js";
 import utility from "../util/index.js";
-import mongoDb from "../driver/mongo.js";
+import mongoDb from "../driver/MongoDb.js";
 
 /**
  * We can save memory by registering all dependency instance as singleton

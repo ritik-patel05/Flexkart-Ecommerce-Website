@@ -1,11 +1,11 @@
-import buildDevLogger from "./dev-logger.js";
-import buildProdLogger from "./prod-logger.js";
+import devLogger from "./devLogger.js";
+import prodLogger from "./prodLogger.js";
 
 let logger = null;
 if (process.env.NODE_ENV === "development") {
-  logger = buildDevLogger();
+  logger = devLogger();
 } else {
-  logger = buildProdLogger();
+  logger = prodLogger();
 }
 
 export default logger;

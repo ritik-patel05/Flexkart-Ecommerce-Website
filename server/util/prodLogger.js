@@ -2,7 +2,7 @@ import { format, createLogger, transports } from "winston";
 
 const { timestamp, combine, errors, json } = format;
 
-const buildProdLogger = () => {
+const prodLogger = () => {
   return createLogger({
     level: "info",
     format: combine(timestamp(), errors({ stack: true }), json()),
@@ -17,4 +17,4 @@ const buildProdLogger = () => {
   });
 };
 
-export default buildProdLogger;
+export default prodLogger;

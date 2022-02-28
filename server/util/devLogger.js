@@ -1,8 +1,8 @@
 import { format, createLogger, transports } from "winston";
 
-const { timestamp, combine, printf, errors, colorize } = format;
+const { combine, printf, errors, colorize } = format;
 
-const buildDevLogger = () => {
+const devLogger = () => {
   const logFormat = printf(({ level, message, timestamp, stack }) => {
     return `${timestamp} ${level}: ${stack || message}`;
   });
@@ -11,7 +11,7 @@ const buildDevLogger = () => {
     level: "info",
     format: combine(
       colorize(),
-      timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+      format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
       errors({ stack: true }),
       logFormat
     ),
@@ -19,4 +19,4 @@ const buildDevLogger = () => {
   });
 };
 
-export default buildDevLogger;
+export default devLogger;
