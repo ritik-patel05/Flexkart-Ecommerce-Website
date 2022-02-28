@@ -1,0 +1,60 @@
+{
+  "name": "flexkart-ecommerce-website",
+  "version": "1.0.0",
+  "description": "A fully functional Ecommerce Website in making",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "prettier": "npx prettier --write --ignore-unknown .",
+    "prettier:check": "npx prettier --check .",
+    "start": "NODE_ENV=production node server/index.js",
+    "dev": "NODE_ENV=development nodemon server/index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*": "npm run prettier"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ritik-patel05/Flexkart-Ecommerce-Website.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Ritik Patel",
+    "email": "ritikptl05@gmail.com",
+    "url": "https://www.linkedin.com/in/ritik-patel-5a61211a4/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ritik-patel05/Flexkart-Ecommerce-Website/issues"
+  },
+  "homepage": "https://github.com/ritik-patel05/Flexkart-Ecommerce-Website#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.3.4",
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1"
+  },
+  "dependencies": {
+    "awilix": "^6.1.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "mongoose": "^6.2.3",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "winston": "^3.6.0"
+  }
+}
