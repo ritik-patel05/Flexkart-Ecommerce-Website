@@ -1,0 +1,99 @@
+.layout {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categories .title {
+  padding: var(--size-11) 0;
+}
+
+.categories-list {
+  display: grid;
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+}
+
+.is-text-black {
+  color: var(--black);
+}
+
+.background-img {
+  position: relative;
+  background-image: url("../assets/Home/girlRedCar.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(243, 243, 243);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.text-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.text-container {
+  top: 100%;
+  transform: translateY(-100%);
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--white);
+}
+
+.btn-container {
+  padding: var(--size-9) 0;
+}
+
+.section {
+  padding: 0 var(--size-11);
+  margin-bottom: var(--size-11);
+  margin-top: var(--size-11);
+}
+
+.sub-heading {
+  font-size: var(--size-8);
+}
+
+@media screen and (min-width: 320px) {
+  .text-container {
+    padding: var(--size-9);
+  }
+
+  .heading {
+    font-size: var(--size-10);
+    margin-bottom: var(--size-3);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .heading {
+    font-size: var(--size-16);
+    margin-bottom: var(--size-6);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .text-container {
+    padding: var(--size-15);
+  }
+}
