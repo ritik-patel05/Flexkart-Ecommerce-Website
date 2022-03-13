@@ -27,16 +27,6 @@
   color: var(--black);
 }
 
-.background-img {
-  position: relative;
-  background-image: url("../assets/Home/girlRedCar.jpeg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: rgb(243, 243, 243);
-  cursor: pointer;
-  overflow: hidden;
-}
-
 .text-wrapper {
   width: 100%;
   height: 100%;
