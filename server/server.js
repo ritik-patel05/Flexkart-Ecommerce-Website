@@ -4,6 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 import compression from "compression";
 import cookieParser from "cookie-parser";
+import router from "./api/router.js";
 
 const server = async (container) => {
   // Start Express App server
@@ -24,8 +25,18 @@ const server = async (container) => {
     // MongoDb Connection
     container.resolve("mongoDb").connectDb();
 
-    // Add initial route
-    app.use("/", (req, res) => {
+    // Passport
+    const Passport = container.resolve("Passport");
+    Passport.useJwtStrategy();
+    Passport.initialize(app);
+
+    app.use((req, res, next) => {
+      req.container = container.createScope();
+      next();
+    });
+
+    // Initial route
+    app.get("/", (req, res) => {
       return res.send(
         `Welcome!!! from Ritik Patel!! ${process.env.NODE_ENV} ${new Date(
           Date.now()
@@ -33,7 +44,8 @@ const server = async (container) => {
       );
     });
 
-    // Add routes
+    // API routes
+    app.use("/api", router);
 
     // Error handler
     app.use((err, req, res, next) => {

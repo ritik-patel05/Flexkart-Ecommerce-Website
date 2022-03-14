@@ -6,9 +6,12 @@ import {
   Lifetime,
 } from "awilix";
 import config from "../config/index.js";
-import models from "../models/index.js";
+import { UserModel } from "../models/index.js";
 import utility from "../util/index.js";
 import mongoDb from "../driver/MongoDb.js";
+import Passport from "../driver/Passport.js";
+import { UserRepo } from "../repository/data/index.js";
+import loginApi from "../api/v1/Login.js";
 
 /**
  * We can save memory by registering all dependency instance as singleton
@@ -33,13 +36,19 @@ container.register({
   constants: asValue(utility.constants),
 
   // ------------------ MODEL ------------------
+  UserModel: asValue(UserModel),
 });
 
 // ------------------ MIDDLEWARE ------------------
 container.register("mongoDb", asClass(mongoDb, getScope()));
+container.register("Passport", asClass(Passport, getScope()));
+
+// ------------------ REPOSITORY ------------------
+container.register("UserRepo", asClass(UserRepo, getScope()));
 
 // ------------------ LOGIC ------------------
 
 // ------------------ API ------------------
+container.register("loginApi", asClass(loginApi, getScope()));
 
 export default container;
