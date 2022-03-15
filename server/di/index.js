@@ -11,7 +11,8 @@ import utility from "../util/index.js";
 import mongoDb from "../driver/MongoDb.js";
 import Passport from "../driver/Passport.js";
 import { UserRepo } from "../repository/data/index.js";
-import loginApi from "../api/v1/Login.js";
+import LoginApi from "../api/v1/Login.js";
+import SignUpApi from "../api/v1/Signup.js";
 
 /**
  * We can save memory by registering all dependency instance as singleton
@@ -49,6 +50,7 @@ container.register("UserRepo", asClass(UserRepo, getScope()));
 // ------------------ LOGIC ------------------
 
 // ------------------ API ------------------
-container.register("loginApi", asClass(loginApi, getScope()));
+container.register("loginApi", asClass(LoginApi, getScope()));
+container.register("signupApi", asClass(SignUpApi, getScope()));
 
 export default container;

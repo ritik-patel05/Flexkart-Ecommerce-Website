@@ -1,4 +1,4 @@
-class Login {
+class SignUp {
   /**
    * @param {Object} createPostLogic logic to get post
    * @param {Object} validate validate
@@ -13,7 +13,7 @@ class Login {
    */
   async handleRequest(req, res) {
     try {
-      const { email, password } = req.body;
+      const { email, firstName, lastName, password } = req.body;
 
       if (!email) {
         const err = new Error("You should enter email address.");
@@ -25,7 +25,17 @@ class Login {
         this.writeResponse(err, null, res);
       }
 
-      const userData = await this.UserRepo.login(email, password);
+      if (!firstName || !lastName) {
+        const err = new Error("You should enter first name and last name.");
+        this.writeResponse(err, null, res);
+      }
+
+      const userData = await this.UserRepo.signup(
+        email,
+        password,
+        firstName,
+        lastName
+      );
       this.writeResponse(null, userData, res);
     } catch (err) {
       this.writeResponse(err, null, res);
@@ -48,4 +58,4 @@ class Login {
   }
 }
 
-export default Login;
+export default SignUp;

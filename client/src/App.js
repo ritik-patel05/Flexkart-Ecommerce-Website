@@ -9,8 +9,8 @@ function App() {
     <div>
       <Navbar />
       {/* <Login /> */}
-      {/* <Home /> */}
-      <Signup />
+      <Home />
+      {/* <Signup /> */}
     </div>
   );
 }

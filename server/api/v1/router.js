@@ -8,6 +8,10 @@ router.post("/login", (req, res) => {
   req.container.resolve("loginApi").handleRequest(req, res);
 });
 
+router.post("/signup", (req, res) => {
+  req.container.resolve("signupApi").handleRequest(req, res);
+});
+
 router.get(
   "/auth/google",
   passport.authenticate("google", {
