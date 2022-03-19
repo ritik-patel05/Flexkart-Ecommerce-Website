@@ -53,7 +53,7 @@ class SignUp {
       res.status(err.code ? err.code : 400);
       return res.send(err.message ? err.message : err);
     }
-    res.status(200);
+    res.status(201);
     return res.send(data);
   }
 }

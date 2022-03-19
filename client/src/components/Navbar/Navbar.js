@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -25,9 +26,9 @@ const Navbar = () => {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </a>
-          <a className="is-title" href="#">
+          <Link to="/" className="is-title" href="#">
             <span className="has-text-weight-bold is-size-5">Flexkart</span>
-          </a>
+          </Link>
         </div>
         <div className="search-field">
           <form>
@@ -63,11 +64,13 @@ const Navbar = () => {
             </div>
             <div className="icon-name">Profile</div>
           </a>
-          <div className="action-item">
-            <button className="btn is-primary">
-              <span className="has-text-weight-semibold">Login</span>
-            </button>
-          </div>
+          <Link to="/login">
+            <div className="action-item">
+              <button className="btn is-primary">
+                <span className="has-text-weight-semibold">Login</span>
+              </button>
+            </div>
+          </Link>
         </nav>
       </div>
       <nav className={`navbar-mobile ${isMobileMenuOpen ? "is-active" : ""}`}>
@@ -91,12 +94,12 @@ const Navbar = () => {
           <div className="icon-name">Profile</div>
         </a>
         <div className="action-item buttons">
-          <button className="btn is-primary">
+          <Link to="/login" className="btn is-primary">
             <span className="has-text-weight-semibold">Login</span>
-          </button>
-          <button className="btn is-secondary">
+          </Link>
+          <Link to="/signup" className="btn is-secondary">
             <span className="has-text-weight-semibold">Sign Up</span>
-          </button>
+          </Link>
         </div>
       </nav>
     </div>

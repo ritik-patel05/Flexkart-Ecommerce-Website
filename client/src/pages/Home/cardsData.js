@@ -1,7 +1,7 @@
-import girlRedCarImg from "../assets/Home/girlRedCar.jpeg";
-import kidsImg from "../assets/Home/kids.png";
-import tshirtsImg from "../assets/Home/tshirts.jpeg";
-import trousersImg from "../assets/Home/trousers.jpeg";
+import girlRedCarImg from "../../assets/Home/girlRedCar.jpeg";
+import kidsImg from "../../assets/Home/kids.png";
+import tshirtsImg from "../../assets/Home/tshirts.jpeg";
+import trousersImg from "../../assets/Home/trousers.jpeg";
 
 export const cardsData = [
   {

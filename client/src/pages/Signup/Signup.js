@@ -1,7 +1,25 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthDispatch, useAuthState } from "../../context/Auth";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 import "../Login/Login.css";
 
 const Signup = () => {
+  useDocumentTitle("Sign up");
+
+  const { user, signup } = useAuthState();
+  const dispatch = useAuthDispatch();
+  const { isSubmitting, errorMsg } = user;
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is already authenticated
+    if (user.user) {
+      navigate("/");
+    }
+  }, []);
+
   const reducer = (state, action) => {
     const { type, payload } = action;
     switch (type) {
@@ -18,18 +36,38 @@ const Signup = () => {
 
   const initialState = { email: "", password: "", acceptAllTC: false };
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, formDispatch] = useReducer(reducer, initialState);
+
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
 
   const handleInputChange = (event) => {
     const { target } = event;
     let { type, checked, value, name } = target;
     value = type === "checkbox" ? checked : value;
 
-    dispatch({ type: name, payload: value });
+    formDispatch({ type: name, payload: value });
   };
 
-  const handleLogin = () => {
-    // Todo: call server
+  const handleSignup = async (event) => {
+    event.preventDefault();
+    dispatch({ type: "RESET" });
+
+    let error = null;
+    try {
+      error = await signup(state);
+    } catch (err) {
+      error = err.message;
+    }
+
+    // Display snackbar of 2seconds, if error occured.
+    if (error) {
+      setIsSnackbarVisible(true);
+      setTimeout(() => {
+        setIsSnackbarVisible((isVisible) => !isVisible);
+      }, 2000);
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -79,14 +117,23 @@ const Signup = () => {
           <button
             type="submit"
             className="btn input-container is-primary"
-            onClick={handleLogin}
+            onClick={handleSignup}
+            disabled={isSubmitting}
           >
             Create New Account
           </button>
-          <a className="input-container account">
+          <Link to="/login" className="input-container account">
             Already have an account &gt;
-          </a>
+          </Link>
         </form>
+        {isSnackbarVisible && (
+          <div className="snackbar is-danger">
+            <span className="icon is-left">
+              <i className="fas fa-info-circle"></i>
+            </span>
+            <div className="is-msg">{errorMsg}</div>
+          </div>
+        )}
       </div>
     </main>
   );
