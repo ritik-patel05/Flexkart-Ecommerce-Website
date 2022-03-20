@@ -1,14 +1,14 @@
 .container {
   background-color: var(--white-light);
-  height: 100vh;
+  padding: var(--size-9);
+  min-height: 100vh;
 }
 
 .wrapper {
   max-width: 525px;
   border-radius: var(--radius);
   background-color: var(--white);
-  margin-left: auto;
-  margin-right: auto;
+  margin: var(--size-15) auto;
 }
 
 .nouse {
@@ -32,6 +32,11 @@
 .input-container {
   width: 80%;
   margin-bottom: var(--size-11);
+  position: relative;
+}
+
+.input-container .icon {
+  cursor: pointer;
 }
 
 .input-container.is-extra-fields {
@@ -60,4 +65,10 @@ label {
 
 .input-container:last-child {
   margin-bottom: var(--size-15);
+}
+
+.formError {
+  color: var(--danger);
+  padding-bottom: var(--size-9);
+  font-weight: var(--weight-semibold);
 }

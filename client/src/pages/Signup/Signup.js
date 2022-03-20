@@ -10,6 +10,7 @@ const Signup = () => {
   const { user, signup } = useAuthState();
   const dispatch = useAuthDispatch();
   const { isSubmitting, errorMsg } = user;
+  const [formError, setFormError] = useState("");
 
   const navigate = useNavigate();
 
@@ -25,8 +26,18 @@ const Signup = () => {
     switch (type) {
       case "email":
         return { ...state, email: payload };
+      case "firstName":
+        return { ...state, firstName: payload };
+      case "lastName":
+        return { ...state, lastName: payload };
       case "password":
         return { ...state, password: payload };
+      case "isPasswordVisible":
+        return { ...state, isPasswordVisible: payload };
+      case "confirmPassword":
+        return { ...state, confirmPassword: payload };
+      case "isConfirmPasswordVisible":
+        return { ...state, isConfirmPasswordVisible: payload };
       case "acceptAllTC":
         return { ...state, acceptAllTC: payload };
       default:
@@ -34,7 +45,16 @@ const Signup = () => {
     }
   };
 
-  const initialState = { email: "", password: "", acceptAllTC: false };
+  const initialState = {
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    acceptAllTC: false,
+    isPasswordVisible: false,
+    isConfirmPasswordVisible: false,
+  };
 
   const [state, formDispatch] = useReducer(reducer, initialState);
 
@@ -48,23 +68,36 @@ const Signup = () => {
     formDispatch({ type: name, payload: value });
   };
 
+  const togglePasswordVisibility = (type) => {
+    formDispatch({ type, payload: !state[type] });
+  };
+
   const handleSignup = async (event) => {
     event.preventDefault();
+
+    if (state.password !== state.confirmPassword) {
+      console.log("in");
+      setFormError("Both Passwords dont match");
+      return;
+    }
+
     dispatch({ type: "RESET" });
+
+    const { firstName, lastName, email, password } = state;
 
     let error = null;
     try {
-      error = await signup(state);
+      error = await signup({ firstName, lastName, email, password });
     } catch (err) {
       error = err.message;
     }
 
-    // Display snackbar of 2seconds, if error occured.
+    // Display snackbar of 4seconds, if error occured.
     if (error) {
       setIsSnackbarVisible(true);
       setTimeout(() => {
         setIsSnackbarVisible((isVisible) => !isVisible);
-      }, 2000);
+      }, 4000);
     } else {
       navigate("/");
     }
@@ -72,9 +105,8 @@ const Signup = () => {
 
   return (
     <main className="container">
-      <div className="nouse"></div>
       <div className="wrapper">
-        <form className="login">
+        <form className="login" onSubmit={handleSignup}>
           <h2 className="title">Signup</h2>
           <div className="input-container">
             <label htmlFor="email">Email address</label>
@@ -89,16 +121,74 @@ const Signup = () => {
             />
           </div>
           <div className="input-container">
+            <label htmlFor="firstName">First name</label>
+            <input
+              id="firstName"
+              name="firstName"
+              className="input"
+              type="text"
+              value={state.firstName}
+              required
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="lastName">Last name</label>
+            <input
+              id="lastName"
+              name="lastName"
+              className="input"
+              type="text"
+              value={state.lastName}
+              required
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="input-container have-icon-right">
             <label htmlFor="password">Password</label>
             <input
               id="password"
               name="password"
               className="input"
-              type="password"
+              type={`${state.isPasswordVisible ? "text" : "password"}`}
               value={state.password}
               required
               onChange={handleInputChange}
             />
+            <span
+              className="icon is-right"
+              onClick={() => togglePasswordVisibility("isPasswordVisible")}
+            >
+              <i
+                className={`fas fa-eye${
+                  state.isPasswordVisible ? "-slash" : ""
+                }`}
+              ></i>{" "}
+            </span>
+          </div>
+          <div className="input-container have-icon-right">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              className="input"
+              type={`${state.isConfirmPasswordVisible ? "text" : "password"}`}
+              value={state.confirmPassword}
+              required
+              onChange={handleInputChange}
+            />
+            <span
+              className="icon is-right"
+              onClick={() =>
+                togglePasswordVisibility("isConfirmPasswordVisible")
+              }
+            >
+              <i
+                className={`fas fa-eye${
+                  state.isConfirmPasswordVisible ? "-slash" : ""
+                }`}
+              ></i>{" "}
+            </span>
           </div>
           <div className="input-container is-extra-fields">
             <div className="">
@@ -117,11 +207,11 @@ const Signup = () => {
           <button
             type="submit"
             className="btn input-container is-primary"
-            onClick={handleSignup}
             disabled={isSubmitting}
           >
             Create New Account
           </button>
+          {formError && <div className="formError">{formError}</div>}
           <Link to="/login" className="input-container account">
             Already have an account &gt;
           </Link>

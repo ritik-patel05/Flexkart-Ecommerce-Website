@@ -27,6 +27,8 @@ const Login = () => {
         return { ...state, email: payload };
       case "password":
         return { ...state, password: payload };
+      case "isPasswordVisible":
+        return { ...state, isPasswordVisible: payload };
       case "rememberMe":
         return { ...state, rememberMe: payload };
       default:
@@ -34,7 +36,12 @@ const Login = () => {
     }
   };
 
-  const initialState = { email: "", password: "", rememberMe: false };
+  const initialState = {
+    email: "",
+    password: "",
+    rememberMe: false,
+    isPasswordVisible: false,
+  };
 
   const [state, formDispatch] = useReducer(reducer, initialState);
 
@@ -48,6 +55,10 @@ const Login = () => {
     formDispatch({ type: name, payload: value });
   };
 
+  const togglePasswordVisibility = (type) => {
+    formDispatch({ type, payload: !state[type] });
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
     dispatch({ type: "RESET" });
@@ -59,12 +70,12 @@ const Login = () => {
       error = err.message;
     }
 
-    // Display snackbar of 2seconds, if error occured.
+    // Display snackbar of 4seconds, if error occured.
     if (error) {
       setIsSnackbarVisible(true);
       setTimeout(() => {
         setIsSnackbarVisible((isVisible) => !isVisible);
-      }, 2000);
+      }, 3000);
     } else {
       navigate("/");
     }
@@ -72,7 +83,6 @@ const Login = () => {
 
   return (
     <main className="container">
-      <div className="nouse"></div>
       <div className="wrapper">
         <form className="login">
           <h2 className="title">Login</h2>
@@ -88,17 +98,27 @@ const Login = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="input-container">
+          <div className="input-container have-icon-right">
             <label htmlFor="password">Password</label>
             <input
               id="password"
               name="password"
               className="input"
-              type="password"
+              type={`${state.isPasswordVisible ? "text" : "password"}`}
               value={state.password}
               required
               onChange={handleInputChange}
             />
+            <span
+              className="icon is-right"
+              onClick={() => togglePasswordVisibility("isPasswordVisible")}
+            >
+              <i
+                className={`fas fa-eye${
+                  state.isPasswordVisible ? "-slash" : ""
+                }`}
+              ></i>{" "}
+            </span>
           </div>
           <div className="input-container is-extra-fields">
             <div className="">

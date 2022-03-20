@@ -58,7 +58,7 @@ export const AuthReducer = (state, action) => {
       console.log("in", payload);
       return {
         ...state,
-        isSubmitting: "heyyy",
+        isSubmitting: false,
         errorMsg: payload,
       };
     case "RESET":
