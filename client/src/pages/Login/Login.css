@@ -2,10 +2,12 @@
   background-color: var(--white-light);
   padding: var(--size-9);
   min-height: 100vh;
+  width: 100%;
 }
 
 .wrapper {
   max-width: 525px;
+  width: 100%;
   border-radius: var(--radius);
   background-color: var(--white);
   margin: var(--size-15) auto;
