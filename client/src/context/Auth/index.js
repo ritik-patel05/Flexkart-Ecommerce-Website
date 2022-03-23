@@ -79,11 +79,11 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = async (dispatch) => {
-    dispatch({ type: "LOGOUT" });
+  const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     axios.defaults.headers.common["Authorization"] = null;
+    dispatch({ type: "LOGOUT" });
   };
 
   return (

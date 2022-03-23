@@ -29,7 +29,12 @@
 .navbar-actions {
   display: flex;
   justify-content: flex-end;
-  padding: 1rem;
+  padding: var(--size-9);
+  width: 270px;
+}
+
+.navbar-actions.desktop {
+  padding: var(--size-10) var(--size-9) 0;
 }
 
 .action-item {
@@ -37,8 +42,21 @@
   position: relative;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 0 var(--size-8);
   cursor: pointer;
+  height: var(--size-16);
+}
+
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.is-profile.action-item {
+  height: var(--size-16);
+  width: 60px;
+  cursor: default;
 }
 
 .action-item .icon {
@@ -91,8 +109,11 @@ a.action-item .icon-name {
 
 .navbar-mobile .action-item {
   font-size: 1.25rem;
-  padding: 0.5em 0.75em;
   margin: 0;
+}
+
+.navbar-mobile .action-item:first-child {
+  padding-top: var(--size-10);
 }
 
 .navbar-mobile .action-item .icon {
@@ -100,7 +121,7 @@ a.action-item .icon-name {
 }
 
 .navbar-mobile hr {
-  margin: 1rem;
+  margin: var(--size-5);
 }
 
 .navbar-mobile .action-item:last-child {

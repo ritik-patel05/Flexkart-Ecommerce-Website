@@ -37,6 +37,10 @@
   position: relative;
 }
 
+.profile-container {
+  width: 60px;
+}
+
 .input-container .icon {
   cursor: pointer;
 }

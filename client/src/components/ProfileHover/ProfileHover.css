@@ -1,0 +1,50 @@
+.invisible {
+  display: none;
+}
+
+.profile-wrapper {
+  width: 300px;
+  padding: var(--size-11) var(--size-10) var(--size-9);
+  z-index: 10;
+  border: 1px solid var(--white-greyish);
+  top: 100%;
+  color: var(--grey-dark);
+  background-color: var(--white);
+  font-size: var(--size-8);
+  box-shadow: 0 1px 10px rgb(0 0 0 / 8%);
+}
+
+.profile-title,
+.profile-subtitle {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.profile-title {
+  font-weight: 600;
+  height: var(--size-10);
+}
+
+.profile-subtitle {
+  height: var(--size-9);
+}
+
+.profile-wrapper .buttons {
+  margin-top: var(--size-9);
+}
+
+.navbar-divider {
+  background-color: var(--white-light);
+}
+
+.profile-items * {
+  padding-top: var(--size-2);
+  padding-bottom: var(--size-2);
+}
+
+.profile-items *:hover {
+  font-weight: 600;
+  cursor: pointer;
+}

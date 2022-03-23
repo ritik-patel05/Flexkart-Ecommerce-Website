@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthState } from "../../context/Auth";
+import ProfileHover from "../ProfileHover";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isProfileHoverVisible, setIsProfileHoverVisible] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen((isOpen) => !isOpen);
   };
 
+  const { user } = useAuthState();
   return (
     <div className="navbar-fk">
       <div className="navbar-container">
@@ -44,7 +48,21 @@ const Navbar = () => {
             </div>
           </form>
         </div>
-        <nav className="navbar-actions">
+        <nav className="navbar-actions desktop">
+          <div
+            className="action-item is-profile"
+            onMouseEnter={(e) => setIsProfileHoverVisible(true)}
+            onMouseLeave={(e) => setIsProfileHoverVisible(false)}
+          >
+            <div className="profile-item">
+              <div className="icon">
+                <i className="fas fa-user"></i>
+              </div>
+              <div className="icon-name">Profile</div>
+            </div>
+            <ProfileHover isProfileHoverVisible={isProfileHoverVisible} />
+          </div>
+
           <a className="action-item">
             <div className="icon">
               <i className="fas fa-heart"></i>
@@ -57,20 +75,6 @@ const Navbar = () => {
             </div>
             <div className="icon-name">Store</div>
           </a>
-          {/* Display either Profile or Login based on Authentication of user */}
-          <a className="action-item">
-            <div className="icon">
-              <i className="fas fa-user"></i>
-            </div>
-            <div className="icon-name">Profile</div>
-          </a>
-          <Link to="/login">
-            <div className="action-item">
-              <button className="btn is-primary">
-                <span className="has-text-weight-semibold">Login</span>
-              </button>
-            </div>
-          </Link>
         </nav>
       </div>
       <nav className={`navbar-mobile ${isMobileMenuOpen ? "is-active" : ""}`}>
@@ -93,14 +97,16 @@ const Navbar = () => {
           </div>
           <div className="icon-name">Profile</div>
         </a>
-        <div className="action-item buttons">
-          <Link to="/login" className="btn is-primary">
-            <span className="has-text-weight-semibold">Login</span>
-          </Link>
-          <Link to="/signup" className="btn is-secondary">
-            <span className="has-text-weight-semibold">Sign Up</span>
-          </Link>
-        </div>
+        {!user.user && (
+          <div className="action-item buttons">
+            <Link to="/login" className="btn is-primary">
+              <span className="has-text-weight-semibold">Login</span>
+            </Link>
+            <Link to="/signup" className="btn is-secondary">
+              <span className="has-text-weight-semibold">Sign Up</span>
+            </Link>
+          </div>
+        )}
       </nav>
     </div>
   );
